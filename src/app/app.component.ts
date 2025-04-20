@@ -58,7 +58,7 @@ export class AppComponent implements OnInit{
   }
 
 
-  data: TreeNode[] = [...Array(10000).keys()].map((item) => {
+  data: TreeNode[] = [...Array(20000).keys()].map((item) => {
     return this.generateDataItem(item)
   })
   ngOnInit(){

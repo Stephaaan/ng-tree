@@ -25,6 +25,7 @@ export class TreeViewComponent implements OnInit {
 
   ngOnInit() {
     this.flatNodes = this.treeFlattener.flattenTree(this.treeData);
+    console.log(this.flatNodes.length);
   }
   filter(filterFn: (node: TreeNode) => boolean) {
     const visibleNodeIds = this.treeFilter.filterNodes(this.treeData, filterFn);
