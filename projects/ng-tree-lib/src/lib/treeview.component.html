@@ -1,0 +1,25 @@
+<cdk-virtual-scroll-viewport [minBufferPx]="200" [maxBufferPx]="500" [itemSize]="10" class="tree-viewport" [style.height.px]="600">
+  <ng-container *cdkVirtualFor="let flatNode of flatNodes; trackBy: trackByNode">
+    @if (flatNode.visible) {
+      <div
+        class="tree-node"
+        [style.padding-left.px]="flatNode.level * 16"
+        role="treeitem"
+        [attr.aria-level]="flatNode.level + 1"
+        [attr.aria-expanded]="flatNode.node.hasChildren ? flatNode.node.isExpanded : null">
+        @if (flatNode.node.hasChildren) {
+          <button
+            class="toggle-btn"
+            (click)="toggleNode(flatNode.node)">
+            {{ flatNode.node.isExpanded ? '-' : '+' }}
+          </button>
+        }
+
+        <ng-container *ngTemplateOutlet="nodeTemplate; context: { node: flatNode.node }">
+        </ng-container>
+      </div>
+    }
+
+
+  </ng-container>
+</cdk-virtual-scroll-viewport>
