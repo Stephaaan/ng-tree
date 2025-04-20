@@ -14,7 +14,8 @@ import {FormsModule} from "@angular/forms";
 export class AppComponent implements OnInit{
   treeComponent = viewChild.required<TreeViewComponent>(TreeViewComponent);
   filterValue: string = "";
-
+  scrollToId: string = "";
+  expandId: string = "";
   generateDataItem(id: number) {
     return {
       id: `${id}`,
@@ -57,7 +58,10 @@ export class AppComponent implements OnInit{
     }
   }
 
-
+  /*
+  data: TreeNode[] = [...Array(20000).keys()].map((item) => {
+    return this.generateDataItem(item)
+  })*/
   data: TreeNode[] = [...Array(20000).keys()].map((item) => {
     return this.generateDataItem(item)
   })
@@ -68,6 +72,14 @@ export class AppComponent implements OnInit{
   filter(){
     console.log("filtering")
     this.treeComponent().filter(node => node.label.includes(this.filterValue))
+  }
+  scrollTo(){
+    console.log("scrolling")
+    this.treeComponent().scrollToIndex(this.scrollToId)
+  }
+  expand(){
+    console.log("expanding");
+    this.treeComponent().expandNode(this.expandId);
   }
 
 }

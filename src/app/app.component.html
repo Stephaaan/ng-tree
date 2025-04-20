@@ -1,13 +1,31 @@
-treeview demo
-<input type="text" [(ngModel)]="filterValue"/>
-<button (click)="filter()">Filter</button>
-<ng-treeview [treeData]="data" [nodeTemplate]="nodeTemplate">
-  <ng-template #nodeTemplate let-node="node">
-    <div class="tree-node-content">
-      <span class="node-label">{{ node.label }}</span>
-      @if(node.metadata){
-        <small class="node-metadata">Description: {{ node.metadata.description }}</small>
-      }
-    </div>
-  </ng-template>
-</ng-treeview>
+<div style="display: flex">
+  <div>
+    <h1>treeview demo</h1>
+    <hr>
+    <h2>Filtering</h2>
+    <input type="text" [(ngModel)]="filterValue"/>
+    <button (click)="filter()">Filter</button>
+    <hr>
+    <h2>Scroll To</h2>
+    <input type="text" [(ngModel)]="scrollToId"/>
+    <button (click)="scrollTo()">Scroll To</button>
+    <hr>
+    <h2>Expand</h2>
+    <input type="text" [(ngModel)]="expandId"/>
+    <button (click)="expand()">Expand</button>
+  </div>
+  <div style="width: 400px">
+    <ng-treeview [treeData]="data" [nodeTemplate]="nodeTemplate">
+      <ng-template #nodeTemplate let-node="node">
+        <div class="tree-node-content">
+          <span class="node-label">{{ node.label }}</span>
+          @if(node.metadata){
+            <small class="node-metadata">Description: {{ node.metadata.description }}</small>
+          }
+        </div>
+      </ng-template>
+    </ng-treeview>
+
+  </div>
+</div>
+
