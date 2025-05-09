@@ -1,28 +1,36 @@
-<cdk-virtual-scroll-viewport role="tree" aria-label="Tree View" [minBufferPx]="200" [maxBufferPx]="500" [itemSize]="35" class="tree-viewport" [style.height.px]="600">
-  <ng-container *cdkVirtualFor="let flatNode of flatNodes | filterOutInvisible; trackBy: trackByNode; let i = index">
-    @if (flatNode.visible) {
-      <div
-        style="height: 35px"
+<cdk-virtual-scroll-viewport role="tree" aria-label="Tree View" [minBufferPx]="200" [maxBufferPx]="500"
+                             [itemSize]="35" class="tree-viewport" [style.height.px]="600">
+  <ng-container *cdkVirtualFor="let flatNode of flatNodes | filterOutInvisible; trackBy: _trackByNode; let i = index">
+    <div
+      style="height: 35px"
+      class="tree-node"
+      [style.padding-left.px]="flatNode.level * 16">
+      {{i}}
+      @if (flatNode.node.hasChildren) {
+        <button
+          class="toggle-btn"
+          (click)="_handleToggleButtonClick(flatNode.node)">
+          {{ flatNode.node.isExpanded ? '-' : '+' }}
+        </button>
+      }
+
+      <button
+        class="tree-select-button"
         [attr.data-index]="i"
-        class="tree-node"
-        [style.padding-left.px]="flatNode.level * 16"
-        role="treeitem"
         [attr.aria-label]="flatNode.node.label"
         [attr.aria-level]="flatNode.level + 1"
-        [attr.aria-expanded]="flatNode.node.hasChildren ? flatNode.node.isExpanded : null">
-        @if (flatNode.node.hasChildren) {
-          <button
-            class="toggle-btn"
-            (click)="_handleToggleButtonClick(flatNode.node)">
-            {{ flatNode.node.isExpanded ? '-' : '+' }}
-          </button>
-        }
-
-        <ng-container *ngTemplateOutlet="nodeTemplate; context: { node: flatNode.node }">
+        [attr.aria-expanded]="flatNode.node.hasChildren ? flatNode.node.isExpanded : undefined"
+        [attr.aria-selected]="flatNode.node | isNodeSelected"
+        [attr.role]="'treeitem'"
+        tabindex="0"
+        (keydown)="_handleKeydown($event, i)"
+        (click)="_toggleNodeSelection(flatNode.node.id)">
+        <ng-container
+          *ngTemplateOutlet="nodeTemplate; context: { node: flatNode.node, selected: flatNode.node | isNodeSelected }">
         </ng-container>
-      </div>
-    }
+      </button>
 
+    </div>
 
   </ng-container>
 </cdk-virtual-scroll-viewport>

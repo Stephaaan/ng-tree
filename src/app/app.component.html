@@ -16,8 +16,8 @@
   </div>
   <div style="width: 400px">
     <ng-treeview [treeData]="data" [nodeTemplate]="nodeTemplate">
-      <ng-template #nodeTemplate let-node="node">
-        <div class="tree-node-content">
+      <ng-template #nodeTemplate let-node="node" let-selected="selected">
+        <div class="tree-node-content" [class.bgRed]="selected">
           <span class="node-label">{{ node.label }}</span>
           @if(node.metadata){
             <small class="node-metadata">Description: {{ node.metadata.description }}</small>

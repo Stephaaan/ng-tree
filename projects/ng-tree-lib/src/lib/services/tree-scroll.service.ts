@@ -19,10 +19,12 @@ export class TreeScrollService {
   scrollToNodeById(flatNodes: FlatTreeNode[], id: string) {
     this.scrollTo(flatNodes, f => f.node.id === id);
   }
-
+  scrollToIndex(index: number){
+    this.viewport?.scrollToIndex(index, 'instant');
+  }
   private scrollTo(flatNodes: FlatTreeNode[], predicate: (f: FlatTreeNode) => boolean) {
     const index = flatNodes.filter(node => node.visible).findIndex(predicate);
-    this.viewport?.scrollToIndex(index, 'instant');
+    this.scrollToIndex(index);
 
   }
 }

@@ -66,19 +66,15 @@ export class AppComponent implements OnInit{
     return this.generateDataItem(item)
   })
   ngOnInit(){
-    //console.log(this.data)
     console.log(this.data.length);
   }
   filter(){
-    console.log("filtering")
     this.treeComponent().filter(node => node.label.includes(this.filterValue))
   }
   scrollTo(){
-    console.log("scrolling")
     this.treeComponent().scrollToIndex(this.scrollToId)
   }
   expand(){
-    console.log("expanding");
     this.treeComponent().expandNode(this.expandId);
   }
 
